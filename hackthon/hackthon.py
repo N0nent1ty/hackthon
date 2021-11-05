@@ -175,6 +175,7 @@ class DMgr:
         count_box = 0 # necessary
         for line in lines:
             line = line.split()
+            print(f"number of line is {len(line)}\n")
             if line[0] == "pallete": # pallete <w> <h> <d> <nBox>
                 name = line[1]+"X"+line[3]+"_"+str(len(containter.Fitted_items))
                 pallete = Pallete(name, name, len(containter.Fitted_items)+1, int(line[1]), int(line[2]), int(line[3]), 23, 0, 0, 0, 0)
@@ -182,6 +183,7 @@ class DMgr:
                 self.total_pallet_types += 1
             else: # <type_id> <w> <h> <d> <x> <y> <z> <r>
                 name = "box" + str(count_box)
+                # id, name, t_idx, w, h, d, kg, x, y, z, r
                 box = Box(name, name, int(line[0]), int(line[1]), int(line[2]), int(line[3]), 10, int(line[4]), int(line[5]), int(line[6]), int(line[7]))
                 containter.Fitted_items[-1].Fitted_items.append(box)
                 self.total_box_types += 1

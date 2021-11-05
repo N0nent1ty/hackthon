@@ -1,2 +1,2 @@
 #!/bin/bash
-python hackthon.py testcase/case60.json
+python3 hackthon.py testcase/case60.json

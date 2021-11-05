@@ -6,7 +6,11 @@ Graph::Graph(int V)
     adj = new list<int>[V];
     revAdj = new list<int>[V];
 }
-  
+
+
+//==================================
+//add directional edge v->w
+//==================================
 void Graph::addEdge(int v, int w)
 {
     adj[v].push_back(w); // Add w to v’s list.

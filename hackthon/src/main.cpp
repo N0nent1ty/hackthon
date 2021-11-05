@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
     vector<vector<size_t> > v_container;
     vector<Box*> v_Box;
     vector<Pallet*> palletV; // maybe can remove
-    vector<vector<Box*>> boxVV(1);
-    vector<size_t> totalVolumeV(1);
+    vector<vector<Box*>> boxVV(1);//size 1 
+    vector<size_t> totalVolumeV(1);// size 1
     vector<Box*> unFitBoxes;
     size_t n1;
     bool use_rand = false;
@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
     if(argc < 2){
         cout << "Use random case.\n";
         use_rand = true;
+        //in random case, it will generate 100 boxes
         n1 = 100;
     }
     else{
@@ -76,6 +77,11 @@ int main(int argc, char *argv[])
             size_t height = rand()%(int)floor(container[2]*0.6)+1;
             size_t weight = rand()%1000+1;
             BoxP = new Box(to_string(i), i, i, width, height, deepth, weight);
+            //=======================================================================
+            //box structure:
+            //string name, size_t id, size_t type_id,
+            //    size_t width, size_t height, size_t deepth, size_t weight
+            //=======================================================================
         }
         else{
             container = v_container[cntPallet];
@@ -84,12 +90,15 @@ int main(int argc, char *argv[])
         BoxP->_container_id = cntPallet;
         size_t volume = BoxP->getVolume();
         totalVolumeV[cntPallet] += volume;
-
+        //==============================================================================
+        //Create new pallet and place last boxes into the next pallet if the 
+        //current accummalated volome size is bigger than 1/2 volone of container, but why?
+        //==============================================================================
         if(totalVolumeV[cntPallet] >= 0.50*container[0]*container[1]*container[2]){
             totalVolumeV[cntPallet] -= volume;
             cout << "Utilization rate: " << totalVolumeV[cntPallet]*1.0/container[0]/container[1]/container[2] << endl;
             cntPallet++;
-            // cout << "Create pallet " << cntPallet << endl;
+            cout << "Create pallet " << cntPallet << endl;
 
             // cout << i << endl;
             boxVV.push_back({}); // add one pallet
@@ -111,6 +120,10 @@ int main(int argc, char *argv[])
                 container[0] = 140;
                 container[1] = 102;
                 container[2] = 220;
+                // SA(vector<size_t> container,
+                // vector<Pallet*> palletV, 
+                //vector<Box*> boxV, 
+                //double totalVolume)
                 SAp = new SA(container, palletV, boxVV[i], totalVolumeV[i]);
             }
             else{

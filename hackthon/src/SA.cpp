@@ -5,11 +5,13 @@
 void SA::solve()
 {
     init();
-
+    //_n= nubmer of boxes
     size_t cnt = 0;
     while(_curTemp >= _endTemp){
         // cout << "curTemp: " << _curTemp << endl;
+        //_p is hyper parameter 15
         for(size_t i = 0; i < _P; i++){
+            //random generated meaningless number pairs
             pair<vector<string>, vector<size_t>> neighbor = pickNeighbor();
             vector<string> newGammaV = neighbor.first;
             vector<size_t> newOrientV = neighbor.second;
@@ -50,16 +52,29 @@ void SA::solve()
 
 void SA::init()
 {
+    //==================================================
+    //Because of the ascii number.
+    //==================================================
     if(_n > 127){
         cout << "I cannot handle it" << endl;
     }
     // Generate gamma1, gamma2, gamma3
+
+    //=======================================================
+    //Generate the vector contained with the following strings
+    //vec={str1, str2, str3}
+    //and str= 123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}
+    //=======================================================
+    
     for(size_t i = 0; i < _n; i++){
         char ch = (char)i;
         _curGammaV[0] += ch;
         _curGammaV[1] += ch;
         _curGammaV[2] += ch;
     }
+    //=======================================================
+    //shuffle those strings
+    //=======================================================
     random_shuffle(_curGammaV[0].begin(), _curGammaV[0].end());
     random_shuffle(_curGammaV[1].begin(), _curGammaV[1].end());
     random_shuffle(_curGammaV[2].begin(), _curGammaV[2].end());
@@ -76,7 +91,9 @@ void SA::init()
     _endTemp = 0.00001;
     _r = 0.9995;
     _P = 15;
-
+    //=========================================================
+    //Only return the best one
+    //=========================================================
     _bestCost = calCost(_curGammaV, _curOrientV).first;
 }
 
@@ -88,9 +105,15 @@ pair<vector<string>, vector<size_t>> SA::pickNeighbor()
     if(i <= 2){
         size_t j = rand()%_n;
         size_t k = rand()%_n;
+        //============================================
+        //k, j is random nuber less than the number of boxes
+        //============================================
         while(k == j){
             k = rand()%_n;
         }
+        //============================================
+        // newGammaV= curGammer swap one the symbol
+        //============================================
         newGammaV[i][j] = _curGammaV[i][k];
         newGammaV[i][k] = _curGammaV[i][j];
     }
@@ -110,6 +133,7 @@ pair<vector<string>, vector<size_t>> SA::pickNeighbor()
 pair<double, double> SA::calCost(vector<string> gammaV, vector<size_t> orientV)
 {
     // Compute the relationship between i&&j
+    // vector<vector<vector<bool> > > _isBefore;
     for(size_t i = 0; i < _n; i++){
         for(size_t j = 0; j < i; j++){
             if(i == j)
@@ -133,6 +157,7 @@ pair<double, double> SA::calCost(vector<string> gammaV, vector<size_t> orientV)
     }
 
     // Create graph
+    //Graph(int V); // Constructor(number of verices)
     Graph graphRear(_n);
     Graph graphRight(_n);
     Graph graphBelow(_n);
