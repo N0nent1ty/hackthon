@@ -9,9 +9,13 @@ void SA::solve()
     size_t cnt = 0;
     while(_curTemp >= _endTemp){
         // cout << "curTemp: " << _curTemp << endl;
-        //_p is hyper parameter 15
+        //=====================================================
+        //_p is hyper parameter 15, which is set in init function
+        //=====================================================
         for(size_t i = 0; i < _P; i++){
+            //========================================================
             //random generated meaningless number pairs
+            //========================================================
             pair<vector<string>, vector<size_t>> neighbor = pickNeighbor();
             vector<string> newGammaV = neighbor.first;
             vector<size_t> newOrientV = neighbor.second;
@@ -399,7 +403,7 @@ void SA::updateBoxInfo(vector<string> gammaV, vector<size_t> orientV)
             }
         }
         belowV[iBelow] = maxBelow;
-        _boxV[iBelow]->_z = maxBelow;
+        _boxV[iBelow]->_z = maxBelow;eo3
     }
 
     for(size_t i = 0; i < _n; i++){
@@ -561,6 +565,14 @@ void SA::outputBoxResult()
 
         // <type_id> <w> <h> <d> <x> <y> <z> <r>
         fout << type_id << " " << w << " " << h << " " << d << " " << x << " " << y << " " << z << " " << orient << "\n";
+        cout<<"type_id:"<<type_id<<endl
+        <<"w"<<w<<endl
+        <<"h"<<h<<endl
+        <<"d"<<d<<endl
+        <<"x"<<x<<endl
+        <<"y"<<y<<endl
+        <<"z"<<z<<endl
+        <<"orient"<<orient<<endl;
     }
     fout.close();
 }

@@ -91,8 +91,8 @@ int main(int argc, char *argv[])
         size_t volume = BoxP->getVolume();
         totalVolumeV[cntPallet] += volume;
         //==============================================================================
-        //Create new pallet and place last boxes into the next pallet if the 
-        //current accummalated volome size is bigger than 1/2 volone of container, but why?
+        //Create new pallet and place last boxes into the next pallete 
+        // if the current accumulated volume size is bigger than 1/2 volume of container, but why?
         //==============================================================================
         if(totalVolumeV[cntPallet] >= 0.50*container[0]*container[1]*container[2]){
             totalVolumeV[cntPallet] -= volume;

@@ -291,8 +291,9 @@ def Processing3DBPWithPallet(container_infos, box_infos, pallet_infos):
         "containers":containers_array,
         }
 
-    result_json_info=json.dumps(final_info_dictionary, indent=4)
- 
+    #result_json_info=json.dumps(final_info_dictionary, indent=4)
+    f=open("")
+    result_json_info=json.load
 
         
         #print(b.getResultDictionary())
@@ -389,8 +390,6 @@ def upLoadExcelSettingFile():
 def reciveJsonFromClient():
     info_jsondata=request.get_json(force=True)
     # print(info_jsondata)
-    with open("text.json", 'w') as out:
-        out.write(json.dumps(info_jsondata, indent=4, sort_keys=True))
     #retrive data from json
     container_infos=info_jsondata['containers']
     box_infos=info_jsondata['boxes']
